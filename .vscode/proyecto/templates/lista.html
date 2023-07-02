@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="{% static 'styles/estilofor.css' %}">
+
+<section class="contenido aliniado">
+    {% for laptop, ruta in laptops_rutas %}
+    <div class="contenedor-foto">
+      <a  href="{% url 'informacionLaptop' laptop.id %}" class="descripcion">{{ laptop.nombre }}</a>
+      <a href="{% url 'informacionLaptop' laptop.id %}">
+          <img src="{{ ruta }}" width="200px" height="200px" alt="" />
+      </a>
+      <div style="background-color: #DaD5B7;" >
+          <h6 class="descripcion" >Marca:{{ laptop.marca }}</h6>
+          <h6 class="descripcion" >Modelo: {{ laptop.modelo }}</h6>
+          <h6 class="precio" >Precio: {{ laptop.precio }} bs</h6>
+          <h6 class="precio" > Stock: {{ laptop.stock }}</h6>
+      </div>
+      <div class="contenedor_botones" >
+      <button style="background-color: #314755;"><a style="color: white;" href="{% url 'modificarLaptop' laptop.id %}" >Editar 
+      </a></button>
+
+      <button style="background-color: #56FE53;"><a style="color: white;" href="{% url 'venderLaptop' laptop.id %}" >Vender 
+      </a></button>
+
+      </div>
+      
+
+    </div>
+    {% endfor %} 
+    

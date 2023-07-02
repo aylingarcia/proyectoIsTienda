@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/estilos.css' %}" />
+{% block content %}
+<section style="margin-right: 20px; margin-left: 20px;">
+<link rel="stylesheet" href="{% static 'styles/estilosUsuarios.css'%}">
+    <h2>Ventas Realizadas</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <tr class="tr">
+            <th class="cant th">CANT.</th>
+            <th class="fecha th">FECHA</th>
+            <th class="modelo th">MODELO</th>
+            <th class="marca th">MARCA</th>
+            <th class="nombre th">NOMBRE COMPRADOR</th>
+            <th class="ci th">C.I. COMPRADOR</th>
+            <th class="precioU th">PRECIO/UNIDAD</th>
+            <th class="precioT th">PRECIO/TOTAL</th>
+            <th class="accion th">FACTURACION</th>
+        </tr>
+       
+        {% for venta in ventas %}
+        <tr>
+            <td class="td">{{ venta.cantidad }}</td>
+            <td class="td">{{ venta.fecha }}</td>
+            <td class="td">{{ venta.modelo }}</td>
+            <td class="td">{{ venta.marca }}</td>
+            <td class="td">{{ venta.cliente }}</td>
+            <td class="td">{{ venta.ci }}</td>
+            <td class="td">{{ venta.precio }}</td>
+            <td class="td">{{ venta.total }}</td>
+            <td class="td"><a href="{% url 'factura' %}?marca={{ venta.marca }}&modelo={{ venta.modelo }}&cantidad={{ venta.cantidad }}
+                &precio={{ venta.total }}&fechacompra={{ venta.fecha }}&cliente={{ venta.cliente }}&cicliente={{ venta.ci }}"
+                class="btn btn-primary js-tooltip" style="background-color: #314755;margin-right: 40px;font-weight: bold; border: 0px;" >Emitir factura</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</section>
+{% endblock %}

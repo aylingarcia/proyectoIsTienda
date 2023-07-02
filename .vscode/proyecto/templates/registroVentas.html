@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/estilos.css' %}" />
+{% block content %}
+<section>
+    <h2>Ventas Realizadas</h2>
+    <table class="tabla">
+        <tr class="tr">
+            <th class="cant th">CANT.</th>
+            <th class="fecha th">FECHA</th>
+            <th class="modelo th">MODELO</th>
+            <th class="marca th">MARCA</th>
+            <th class="nombre th">NOMBRE COMPRADOR</th>
+            <th class="ci th">C.I. COMPRADOR</th>
+            <th class="precioU th">PRECIO/UNIDAD</th>
+            <th class="precioT th">PRECIO/TOTAL</th>
+        </tr>
+       
+        {% for venta in ventas %}
+        <tr>
+            <td class="td">{{ venta.cantidad }}</td>
+            <td class="td">{{venta.fecha}}</td>
+            <td class="td">{{venta.modelo}}</td>
+            <td class="td">{{venta.marca}}</td>
+            <td class="td">{{venta.cliente}}</td>
+            <td class="td">{{venta.ci}}</td>
+            <td class="td">{{venta.precio}}</td>
+            <td class="td">{{venta.precio}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}

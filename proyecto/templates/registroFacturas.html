@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/estiloRegistroFacturas.css' %}" />
+{% block content %}
+<section style="margin-right: 20px; margin-left: 20px;">
+    <h2>Facturas Emitidas</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <tr class="tr">
+            <th class="nroDeFact th">NRODEFACT.</th>
+            <th class="cant th">CANT.</th>
+            <th class="fecha th">FECHA</th>
+            <th class="modelo th">MODELO</th>
+            <th class="nombre th">NOMBRE</th>
+            <th class="ci th">C.I. COMPRADOR</th>
+            <th class="precioU th">PRECIO/UNIDAD</th>
+            <th class="precioT th">PRECIO/TOTAL</th>
+        </tr>
+       
+        {% for factura in Facturas %}
+        <tr>
+            <td class="td">{{ factura.cantidad }}</td>
+            <td class="td">{{factura.fecha}}</td>
+            <td class="td">{{factura.modelo}}</td>
+            <td class="td">{{factura.ci}}</td>
+            <td class="td">{{factura.precio}}</td>
+            <td class="td">{{factura.precio}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}

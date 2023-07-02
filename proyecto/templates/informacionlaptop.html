@@ -1,0 +1,110 @@
+{% extends 'layouts/base.html' %} {% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/estilos.css' %}" />
+{% block content %}
+<h1></h1>
+
+
+<section>
+  <h1 style="text-align: center; width: 100%; padding: 2% 0% 1% 0%;">{{ laptop.nombre }}</h1>
+  <div style="display: flex;">
+    <div class="contenedor-imagenes">
+      <img id="imagen-principal" src="{{ ruta_1 }}" alt="Imagen principal" />
+      <div class="contenedor-imagenes-secundarias">
+        <img class="imagen-secundaria" src="{{ ruta_2 }}" alt="Imagen secundaria 1" i />
+        <img class="imagen-secundaria" src="{{ ruta_3 }}" alt="Imagen secundaria 2" />
+        <img class="imagen-secundaria" src="{{ ruta_4 }}" alt="Imagen secundaria 3" />
+      </div>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
+      {% if request.user.is_superuser %}
+      <div>
+        <a href="{% url 'laptops' %}"
+          style="text-decoration:none; color:white ; position: absolute; background-color: #314755; padding: 10px 24px; border-radius: 15px; left: 300px; top:800px;">VOLVER</a>
+      </div>
+      {% endif %}
+    </div>
+    <div style="position:relative; top:8px; display: flex; flex-direction: column; padding: 0% 12% 0% 12% ;">
+      <table style="text-align: center; ">
+        <tr style="background-color: #D9D9D9; ">
+          <th style="border-radius: 30px 0px 0px 0px;">Marca:</th>
+          <td style="border-radius: 0px 30px 0px 0px;">{{ laptop.marca }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Modelo:</th>
+          <td>{{ laptop.modelo }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Stock:</th>
+          <td>{{ laptop.stock }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Precio:</th>
+          <td>{{ laptop.precio }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Pantalla:</th>
+          <td>{{ laptop.pantalla }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Teclado:</th>
+          <td>{{ laptop.teclado }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Procesador:</th>
+          <td>{{ laptop.procesador }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>RAM:</th>
+          <td>{{ laptop.ram }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>Color:</th>
+          <td>{{ laptop.color }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>M2:</th>
+          <td>{{ laptop.m2 }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th>HDD:</th>
+          <td>{{ laptop.hdd }}</td>
+        </tr>
+        <tr style="background-color: #D9D9D9; ">
+          <th style="border-radius: 0px 0px 0px 30px;">Gráfica:</th>
+          <td style="border-radius: 0px 0px 30px 0px;">{{ laptop.grafica }}</td>
+        </tr>
+      </table>
+      <br>
+    </br>
+      <table style="text-align: center; width: 90%; position: relative; display:flex; padding: 0% 5% 0% 12%;">
+        <tr style="border-radius: 30px;background-color: #D9D9D9;">
+          <th style="border-radius: 10px 0px 0px 10px;">Descripción:</th>
+          <td style="border-radius: 0px 10px 10px 0px;">{{ laptop.descripcion }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+<script src="{% static 'scripts/app.js' %}"></script>
+{% endblock %}

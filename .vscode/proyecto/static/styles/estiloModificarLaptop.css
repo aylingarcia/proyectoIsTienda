@@ -1,0 +1,12 @@
+.col-sm-3 {
+    font-size: 18px;
+}
+.modal-header {
+    padding: 0.5rem 0.5rem;
+}
+.modal-body {
+    padding: 0.2rem 1.3rem;
+}
+.justify-content-between {
+    padding: 0.5rem 8rem;
+}

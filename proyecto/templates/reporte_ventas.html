@@ -1,0 +1,78 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'styles/reporte_ventas.css' %}">
+    <style>
+        .fechas p.error-message {
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+
+<section class="contenido" style="grid-template-columns: none;background: white;">
+    <div class="modal-header">
+        <h4>Reporte de ventas</h4>
+    </div>
+    <div class="fechas">
+        <form action="#" id="fecha-form">
+            <span class="span">Fecha Inicio</span>
+            <input class="btn" type="date" name="fecha_inicio" value="{{ fecha_inicio|default_if_none:'' }}">
+            <span class="span">Fecha Fin</span>
+            <input class="btn" type="date" name="fecha_fin" value="{{ fecha_fin|default_if_none:'' }}">
+            <input class="aceptar" type="submit" value="Aceptar">
+        </form>
+        <p class="error-message" id="error-message" style="display: none;">Introducir fechas válidas por favor.</p>
+    </div>
+    <div>
+        <div class="left">
+            <select name="" id="tipo">
+                <option value="circular">
+                    Gráfico Circular
+                </option>
+                <option value="columna">
+                    Gráfico de Columnas
+                </option>
+            </select>
+            <input type="text" placeholder="Laptops Vendidas" id="titulo" readonly>
+            {% if no_ventas %}
+                <p>No se encontraron ventas para las fechas ingresadas.</p>
+            {% else %}
+                <div class="datos" id="datos">
+                    <div class="row">
+                        <div class="col-sm-2">cant</div>
+                        <div class="col-sm-6">laptop</div>
+                        <div class="col-sm-4">total</div>
+                      </div>
+                        {% for marca, datos in ventas.items %}
+                        <div class="dato">
+                            <input type="text" value="{{ datos.cantidad }}" class="cantidad" readonly>
+                            <input type="text" value="{{ marca }}" class="serie" readonly>
+                            <input type="text" value="{{ datos.precio }}" class="valor" readonly>
+                        </div>
+                        {% endfor %}
+                </div>
+                <button onclick="cargarGrafico()" class="crear-grafico">Crear Gráfico</button>
+            {% endif %}
+        </div>
+        <div class="right">
+            <div id="piechart"></div>
+        </div>
+    </div>
+
+    <script src="{% static '/scripts/reporte.js' %}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        document.getElementById('fecha-form').addEventListener('submit', function(event) {
+            var fechaInicio = document.getElementsByName('fecha_inicio')[0].value;
+            var fechaFin = document.getElementsByName('fecha_fin')[0].value;
+            if (!fechaInicio || !fechaFin) {
+                event.preventDefault();
+                document.getElementById('error-message').style.display = 'block';
+            }
+        });
+    </script>
+</section>
+{% endblock %}

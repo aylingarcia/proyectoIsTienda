@@ -1,0 +1,91 @@
+body{
+    overflow: hidden;
+}
+section {
+    display: block;
+    width: 100%;
+}
+
+h1 {
+    padding-left: 2rem;
+}
+
+.input-form {
+    display: block;
+    width: 50rem;
+    position:relative;
+    top: 50px;
+}
+
+.asterisco {
+    color: red;
+    visibility: visible;
+    font-size: medium;
+    padding-left: 0px;
+}
+
+form {
+    padding-left: 2rem;
+    font-size: large;
+    line-height:250%;
+}
+
+.line {
+    height: 2px;
+    background-color: black;
+}
+
+.cancelar {
+    background-color: #e7e7e7; color: black;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    position:absolute;
+    bottom: 30px;
+    right: 200px;
+
+    line-height:100%;
+}
+
+.registrar {
+    background-color: #314755;;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    position:absolute;
+    bottom: 30px;
+    right: 30px;
+
+    line-height:100%;
+}
+
+.error,
+.error-message {
+  border-color: red;
+}
+
+.error::placeholder,
+.error-message::placeholder {
+  color: red;
+}
+
+.error + .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.scroll-container {
+    max-height: 600px;
+    overflow-y: auto;
+}

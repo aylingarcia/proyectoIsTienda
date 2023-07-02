@@ -1,0 +1,36 @@
+.busqueda{
+    height: 150px;
+    width: 200px;
+    
+    display: block;
+    position:absolute;
+    right: -0px;
+}
+
+.botonbuscar {
+    background-color: #314755; 
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    justify-content: center;
+
+}
+.ciclo{
+    position: relative;
+    float: right;
+    top: 120px;
+    
+}
+.custom-search-input{
+    display: block;
+}
+.posboton{
+    float: left;
+    display:flex;
+    position:relative;
+
+}

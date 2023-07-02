@@ -1,0 +1,316 @@
+{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'styles/estiloModificarLaptop.css' %}">
+</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  {% block js %}
+  <script>
+    function cancelarVenta(){
+      Swal.fire({
+        title: "Desea cancelar la venta?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "No",
+        confirmButtonText: "Si"
+      })
+      .then(function(result) {
+        if(result.isConfirmed){
+          window.location.href = "http://127.0.0.1:8000/laptops/";
+        }
+      })
+    }
+  </script>
+  {% endblock %}
+
+  <section class="contenido aliniado" style="grid-template-columns: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Venta de laptop</h4>
+          
+        </div>
+        <div class="modal-body">
+          <div class="tab-pane active" id="post-object-form">
+            <form
+              method="POST"
+              action="{% url 'venderLaptop' laptop.id %}"
+              enctype="multipart/form-data"
+              id="formularioRegistro"
+            >
+              {% csrf_token %}
+              <div class="row" style=" margin: 10px;">
+                <div class="col-sm-6">
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Modelo <label style="color: red;">*</label>
+                      </label>
+                      <div class="col-sm-9">
+                        <input
+                          name="modelo"
+                          title="Por favor ingrese un modelo"
+                          class="form-control"
+                          type="text"
+                          pattern="[a-zA-Z0-9\-\/\(\)_\.,]+(\s[a-zA-Z0-9\-\/\(\)_\.,]+)*"
+                          value="{{laptop.modelo}}"
+                          required
+                          maxlength="20"
+                          minlength="5"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Ingrese un modelo válido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio"
+                        >Marca <label style="color: red;">*</label></label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          name="marca"
+                          title="Por favor ingrese una marca"
+                          class="form-control"
+                          type="text"
+                          pattern="[a-zA-Z0-9]+([ ][a-zA-Z0-9]+)*"
+                          value="{{laptop.marca}}"
+                          required
+                          maxlength="20"
+                          minlength="2"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                         Ingrese un marca válida.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Cantidad de unidades <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="cantidad"
+                          title="Por favor ingrese la cantidad de laptops"
+                          class="form-control"
+                          type="number"
+                          required
+                          value=""
+                          max="1000"
+                          min="1"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Introduzca un valor de unidad que sea mayor a 0 y menor a 1000.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Precio <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="precio"
+                          title="Por favor ingrese el precio de la laptop"
+                          class="form-control"
+                          type="number"
+                          value="{{laptop.precio}}"
+                          required
+                          max="30000"
+                          min="350"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Introduzca un valor de unidad que sea mayor a 350 y menor a 30000.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" title="Campo obligatorio">
+                          Fecha <label style="color: red;">*</label>
+                        </label>
+          
+                        <div class="col-sm-9">
+                          <input
+                            name="fecha"
+                            title="Por favor ingrese la fecha de venta"
+                            class="form-control"
+                            type="date"
+                            value=""
+                            required
+                            oninvalid="this.classList.add('is-invalid')"
+                          />
+                          <div class="invalid-feedback">
+                            Introduzca una fecha valida.
+                          </select>
+                          </div>
+                        </div>
+                      </div>
+        
+                    </fieldset>
+                  </div >
+                      <div class="col-sm-6">
+                        <fieldset>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                       Nombre Cliente <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="cliente"
+                          title="Por favor ingrese el nombre completo del cliente"
+                          class="form-control"
+                          type="text"
+                          pattern="[a-zA-Z0-9]+([ ][a-zA-Z0-9]+)*"
+                          value=""
+                          required
+                          maxlength="35"
+                          minlength="10"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          “Introduzca un nombre completo valido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Direccion <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="direccion"
+                          title="Por favor ingrese la direccion del cliente"
+                          class="form-control"
+                          type="text"
+                          pattern="[a-zA-Z0-9\-\/\(\)_\.,]+(\s[a-zA-Z0-9\-\/\(\)_\.,]+)*"
+                          value=""
+                          required
+                          maxlength="25"
+                          minlength="4"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Introduzca una direccion valida.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Cedula de Identidad <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="ci"
+                          title="Por favor ingrese La C.I. del cliente"
+                          class="form-control"
+                          type="number"
+                          value=""
+                          required
+                          max="99999999999"
+                          min="1000"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Introduzca una C.I. valido.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" title="Campo obligatorio">
+                        Telefono <label style="color: red;">*</label>
+                      </label>
+        
+                      <div class="col-sm-9">
+                        <input
+                          name="telefono"
+                          title="Por favor ingrese el telefono del cliente"
+                          class="form-control"
+                          type="number"
+                          value=""
+                          required
+                          max="99999999999"
+                          min="1000"
+                          oninvalid="this.classList.add('is-invalid')"
+                        />
+                        <div class="invalid-feedback">
+                          Introduzca un telefono valido.
+                        </div>
+                      </div>
+                    </div>
+
+                      <div class="modal-footer">
+                      
+                        <div class="form-actions d-flex justify-content-between" >
+                        <button
+                          class="btn btn-default"
+                          title=""
+                          
+                          style="background-color: #D9D9D9;color: black;margin-right: 40px;"
+                          type="button"
+                     onclick="cancelarVenta()"
+                        >
+                          CANCELAR
+                        </button>
+                        <script>
+                          function guardarVenta(){
+                            Swal.fire({
+                              title: "Desea cancelar la venta?",
+                              icon: "question",
+                              showCancelButton: true,
+                              cancelButtonText: "No",
+                              confirmButtonText: "Si"
+                            })
+                            .then(function(result) {
+                              if(result.isConfirmed){
+                                //borrarMensajesError()
+                                window.location.href = "http://127.0.0.1:8000/laptops/";
+                              }
+                            })
+                          }
+                        </script>
+                        <button
+                          class="btn btn-primary js-tooltip"
+                          id="btnGuardar"
+                          title=""
+                          style="background-color: #243757;margin-right: 40px;"
+                          onclick="guardarVenta()"
+                        >
+                          GUARDAR
+           
+                        </button>
+                      </div>
+        </div>
+                      
+                    </fieldset>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- </section>
+    </section>
+    -->
+    
+    
+    {% endblock %}

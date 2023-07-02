@@ -1,0 +1,187 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/registro.css' %}">
+<link rel="stylesheet" href="{% static 'styles/estiloModificarLaptop.css' %}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<section class="scroll-container" >
+    <h1>Registrar nuevo empleado</h1>
+    <div class="line" ></div>
+    <form action="{% url 'registro' %}" method="POST" >
+      {% csrf_token %}
+      <div class="row" style="margin: 5px;">
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" title="Campo obligatorio">
+                Nombre Empleado:<span class="asterisco">*</span>
+              </label>
+              <div class="col-sm-7">
+                <input class="form-control{% if errors_dict.nombemp %} error{% endif %}"
+                  title="Por favor ingrese un empleado" 
+                  type="text" 
+                  name="nombemp" 
+                  id="nombemp" 
+                  required pattern="^[A-Za-z\s]{15,80}$"
+                  maxlength="80"
+                  minlength="15" 
+                  oninvalid="this.classList.add('is-invalid')" 
+                  placeholder="{% if errors_dict.nombemp %}{{ errors_dict.nombemp }}{% else %}{% endif %}">
+                <div class="invalid-feedback">
+                  Introduzca sólo caracteres alfabéticos.
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" title="Campo obligatorio">
+                CI:<span class="asterisco">*</span>
+              </label>
+              <div class="col-sm-7">
+                <input class="form-control{% if errors_dict.ciemp %} error-message{% endif %}"
+                  title="Por favor ingrese un CI" 
+                  type="number" 
+                  name="ciemp" 
+                  id="ciemp" 
+                  required pattern="^[0-9]{6,12}" 
+                  oninvalid="this.classList.add('is-invalid')" 
+                  placeholder="{% if errors_dict.ciemp %}{{ errors_dict.ciemp }}{% else %}{% endif %}">
+                <div class="invalid-feedback">
+                  Ingrese un CI válido.
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" title="Campo obligatorio">
+                Nombre de Usuario:<span class="asterisco">*</span>
+              </label>
+              <div class="col-sm-7">
+                <input class="form-control{% if errors_dict.usuario %} error{% endif %}"
+                  title="Por favor ingrese un usuario" 
+                  type="text" 
+                  name="usuario" 
+                  id="usuario" 
+                  required 
+                  pattern="[a-zA-Z0-9]+"
+                  maxlength="10"
+                  minlength="3" 
+                  oninvalid="this.classList.add('is-invalid')" 
+                  placeholder="{% if errors_dict.usuario %}{{ errors_dict.usuario }}{% else %}{% endif %}">
+                <div class="invalid-feedback">
+                  Introduzca un nombre de usuario válido.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" title="Campo obligatorio">
+                Contraseña:<span class="asterisco">*</span>
+              </label>
+              <div class="col-sm-7">
+                <input class="form-control{% if errors_dict.password %} error{% endif %}"
+                  title="Por favor ingrese la contraseña" 
+                  type="password" 
+                  name="password" 
+                  id="password" 
+                  required pattern="[a-zA-Z0-9]{8,20}" 
+                  oninvalid="this.classList.add('is-invalid')" 
+                  placeholder="{% if errors_dict.password %}{{ errors_dict.password }}{% else %}{% endif %}">
+                <div class="invalid-feedback">
+                  La contraseña debe estar compuesta solo por letras y/o números.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label" title="Campo obligatorio">
+                Confirmar Contraseña:<span class="asterisco">*</span>
+              </label>
+              <div class="col-sm-7">
+                <input class="form-control"
+                  title="Por favor ingrese la contraseña" 
+                  type="password" 
+                  name="confirmar_password" 
+                  id="confirmar_password" 
+                  required pattern="[a-zA-Z0-9]{8,20}" 
+                  oninvalid="this.classList.add('is-invalid')" >
+                <div class="invalid-feedback">
+                  La contraseña debe estar compuesta solo por letras y/o números.
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+        <input class="cancelar" type="button" value="Cancelar" onclick="cancelarRegistro()">
+        <input class="registrar" type="submit" value="Registrar" onclick="verificarContra()">
+        
+
+    </form>
+</section>
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'success' %}    
+         <script>
+           console.log('verificar el mensaje')
+             Swal.fire({
+                  title: "El empleado ha sido registrado correctamente",
+                  icon: "success",
+                  timer: 4000,
+                  timerProgressBar: true,
+                  showConfirmButton: false,
+             });
+         </script>
+         {% endif %}
+  {% endfor %}
+{% endif %}
+{% block js %}
+<script>
+    function cancelarRegistro(){
+    Swal.fire({
+      title: "Está seguro(a) que desea cancelar el registro",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Si"
+    })
+    .then(function(result) {
+        if(result.isConfirmed){
+          window.location.href = "http://127.0.0.1:8000/usuarios/";
+        }
+    })
+  }
+
+    function verificarContra(){
+      
+      let password1 = document.getElementsByName("password")[0].value;
+      let password2= document.getElementsByName("confirmar_password")[0].value;
+      if(password1!=password2){
+        alert("las contraseñas no coinciden");
+        Swal.fire({
+        title: "las contraseñas no coinciden",
+        icon: "warning",
+        
+        confirmButtonText: "vale"
+        })
+        console.log('se verifico el mensaje')
+      }  
+    }
+</script>
+{% endblock %}
+{% endblock %}
+

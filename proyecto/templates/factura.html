@@ -1,0 +1,468 @@
+{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <section class="contenido aliniado" style="grid-template-columns: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">EMITIR FACTURA</h4>
+          
+        </div>
+
+
+        <div class="modal-body">
+          <div class="tab-pane active" id="post-object-form">
+            <form
+              method="POST"
+              action="{% url 'factura'  %}"
+              enctype="multipart/form-data"
+              id="formularioRegistro"
+            >
+            {% csrf_token %}
+        <style>
+
+            
+        </style>
+              <div class="row" style=" margin: 10px;">
+                <div class="col-sm-6">
+                  <fieldset>
+                    <h4 class="centrado">DATOS DE EL PRODUCTO</h4>
+
+                    <div class="form-group">
+
+                        <style>
+                            .container {
+                                display: flex;
+                                align-items: center;
+                            }
+                            label {
+                                margin-right: 10px;
+                            }
+                        </style>
+                    
+                    
+                        <div class="container">
+                            
+                            <label class="col-sm-3 control-label" title="Campo obligatorio">
+                                Marca <label style="color: red;">*</label>
+                              </label>
+                            <input type="text" id="marca" name="marca" >
+                        </div>
+
+                        
+                      <div class="col-sm-9">
+                        
+                        <div class="invalid-feedback">
+                          Ingrese un nombre valido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      
+                      <style>
+                        .container {
+                            display: flex;
+                            align-items: center;
+                        }
+                        label {
+                            margin-right: 10px;
+                        }
+                    </style>
+                
+                    <div class="container">
+                        
+                        <label class="col-sm-3 control-label" title="Campo obligatorio">
+                            Modelo <label style="color: red;">*</label>
+                          </label>
+                        <input type="text" id="modelo" name="modelo" >
+                    </div>
+
+
+                      <div class="col-sm-9">
+                         
+
+                        <div class="invalid-feedback">
+                         Ingrese un modelo  válido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    
+                    <div class="form-group">
+                      
+                        <style>
+                            .container {
+                                display: flex;
+                                align-items: center;
+                            }
+                            label {
+                                margin-right: 10px;
+                            }
+                        </style>
+                    
+                        <div class="container">
+                            
+                            <label class="col-sm-3 control-label" title="Campo obligatorio">
+                                Cantidad <label style="color: red;">*</label>
+                              </label>
+                              <input type="text" id="cantidad" name="cantidad" >
+                            </div>
+                      <div class="col-sm-9">
+                        
+                        <div class="invalid-feedback">
+                          Introduzca la cantidad.
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                      
+                      <style>
+                          .container {
+                              display: flex;
+                              align-items: center;
+                          }
+                          label {
+                              margin-right: 10px;
+                          }
+                      </style>
+                  
+                      <div class="container">
+                          
+                          <label class="col-sm-3 control-label" title="Campo obligatorio">
+                              Precio total<label style="color: red;">*</label>
+                            </label>
+                            <input type="text" id="precio" name="precio" >
+                          </div>
+                    <div class="col-sm-9">
+                      
+                      <div class="invalid-feedback">
+                        Introduzca el precio.
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                    <h4 class="centrado">DATOS DE LA FACTURA </h4>
+
+                    <div class="form-group">
+
+                        <style>
+                            .container {
+                                display: flex;
+                                align-items: center;
+                            }
+                            label {
+                                margin-right: 10px;
+                            }
+                        </style>
+                    
+                    
+                        <div class="container">
+                            
+                            <label class="col-sm-3 control-label" title="Campo obligatorio">
+                               Fecha de la compra  <label style="color: red;">*</label>
+                              </label>
+
+                            <input
+                            name="fechacompra"
+                            id="fechacompra"
+                            title="Por favor ingrese la fecha de venta"
+                            class="form-control"
+                            type="date"
+                            value=""
+                            required
+                            oninvalid="this.classList.add('is-invalid')"
+                          />
+                            </div>
+
+                        
+                      <div class="col-sm-9">
+                        
+                        <div class="invalid-feedback">
+                          Ingrese una fecha valida valido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      
+                      <style>
+                        .container {
+                            display: flex;
+                            align-items: center;
+                        }
+                        label {
+                            margin-right: 10px;
+                        }
+                    </style>
+                
+                    
+
+
+                      <div class="col-sm-9">
+                         
+
+  
+                      </div>
+                    </div>
+        
+                    
+                    <div class="form-group">
+                      
+                        <style>
+                            .container {
+                                display: flex;
+                                align-items: center;
+                            }
+                            label {
+                                margin-right: 10px;
+                            }
+                        </style>
+                    
+                        <div class="container">
+                            
+                            <label class="col-sm-3 control-label" title="Campo obligatorio">
+                                Nro de factura  <label style="color: red;">*</label>
+                              </label>
+                              <input type="number" id="numfac" name="numfac" >
+                            </div>
+                      <div class="col-sm-9">
+                        
+                        <div class="invalid-feedback">
+                          Introduzca el numero valido.
+                        </div>
+                      </div>
+                    </div>
+        
+                    </fieldset>
+                  </div >
+   
+                   
+<div class="col-sm-6">
+    <fieldset>
+<div class="form-group">
+
+<h4 class="centrado">DATOS DEL VENDEDOR </h4>
+
+<div class="form-group">
+
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+        }
+        label {
+            margin-right: 10px;
+        }
+    </style>
+
+
+    <div class="container">
+        
+        <label class="col-sm-3 control-label" title="Campo obligatorio">
+           Nombre <label style="color: red;">*</label>
+          </label>
+        <input type="text" id="nombemp" name="nombemp" >
+    </div>
+
+    
+  <div class="col-sm-9">
+    
+    <div class="invalid-feedback">
+      Ingrese un nombre valido.
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  
+  <style>
+    .container {
+        display: flex;
+        align-items: center;
+    }
+    label {
+        margin-right: 10px;
+    }
+</style>
+
+
+
+
+  <div class="col-sm-9">
+     
+
+
+  </div>
+</div>
+
+
+<div class="form-group">
+  
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+        }
+        label {
+            margin-right: 10px;
+        }
+    </style>
+
+  
+
+
+<h4 class="centrado">DATOS DE EL COMPRADOR </h4>
+
+            <div class="container">
+        
+        <label class="col-sm-3 control-label" title="Campo obligatorio">
+            Nombre<label style="color: red;">*</label>
+          </label>
+          <input type="text" id="cliente" name="cliente" >
+        </div>
+  <div class="col-sm-9">
+    
+    <div class="invalid-feedback">
+      Introduzca el nombre.
+    </div>
+  </div>
+</div>
+<div class="container">
+        
+    <label class="col-sm-3 control-label" title="Campo obligatorio">
+        Nit/CI  <label style="color: red;">*</label>
+      </label>
+      <input type="text" id="cicliente" name="cicliente" >
+    </div>
+<div class="col-sm-9">
+
+<div class="invalid-feedback">
+  Introduzca el NIT o CI.
+</div>
+</div>
+</div>
+
+
+
+
+                      <div class="modal-footer">
+                      
+                        <div class="form-actions d-flex justify-content-between" >
+                        <button
+                          class="btn btn-default"
+                          title=""
+                          
+                          style="background-color: #D9D9D9;color: black;margin-right: 40px;"
+                          type="button"
+                     onclick="eliminarcambios()"
+                     onclick="cancelarRegistro()"
+                        >
+                          CANCELAR
+                        </button>
+                        <script>
+                          function prepararImpresion(){
+                            Swal.fire({
+                                      title: "La impresion ha sido realizada con éxito",
+                                        icon: "info",
+                                        timer: 10000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false,
+                            })
+                            
+                            imprimir()
+                          }
+                        </script>
+                        <button
+                          class="btn btn-primary js-tooltip"
+                          id="btnGuardar"
+                          title=""
+                          style="background-color: #314755;margin-right: 40px;font-weight: bold; border: 0px;""
+                          onclick="prepararImpresion()"
+                        >
+                        IMPRIMIR FACTURA      
+                        </button>
+                      </div>
+        </div>
+                      
+                    </fieldset>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- </section>
+    </section>
+    -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var modelo = urlParams.get("modelo");
+        var precio = urlParams.get("precio");
+        var cliente = urlParams.get("cliente");
+        var marca = urlParams.get("marca");
+        var cantidad = urlParams.get("cantidad");
+        var fechacompra = urlParams.get("fechacompra");
+        var cicliente = urlParams.get("cicliente");
+    
+        if (modelo) {
+          document.getElementById("modelo").value = modelo;
+        }
+        if (precio) {
+          document.getElementById("precio").value = precio;
+        }
+        if (cliente) {
+          document.getElementById("cliente").value = cliente;
+        }
+        if (marca) {
+          document.getElementById("marca").value = marca;
+        }
+        if (cantidad) {
+          document.getElementById("cantidad").value = cantidad;
+        }
+        if (cicliente) {
+          document.getElementById("cicliente").value = cicliente;
+        }
+      });
+    </script>
+    
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var fecha = urlParams.get("fechacompra");
+        
+        if (fecha) {
+          var fechaInput = document.getElementById("fechacompra");
+          fechaInput.valueAsDate = new Date(fecha);
+        }
+      });
+    </script>
+    
+    
+    
+    
+    
+
+<script>
+  function imprimir(){
+    window.print();
+  }
+</script>
+    {% endblock %}

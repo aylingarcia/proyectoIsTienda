@@ -1,0 +1,449 @@
+
+{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'styles/estiloModificarLaptop.css' %}">
+</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{% block js %}
+<script>
+  function eliminarcambios(){
+    Swal.fire({
+      title: "Desea descartar los cambios",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Si"
+    })
+    .then(function(result) {
+      if(result.isConfirmed){
+        window.location.href = "http://127.0.0.1:8000/laptops/";
+      }
+    })
+  }
+</script>
+{% endblock %}
+
+<section class="contenido aliniado" style="grid-template-columns: none;">
+<div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Editar datos de la laptop</h4>
+      
+    </div>
+    <div class="modal-body">
+      <div class="tab-pane active" id="post-object-form">
+        <form
+          method="POST"
+          action="{% url 'modificarLaptop' laptop.id %}"
+          enctype="multipart/form-data"
+          id="formularioRegistro"
+        >
+          {% csrf_token %}
+          <div class="row" style=" margin: 10px;">
+            <div class="col-sm-6">
+              <fieldset>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Modelo <label style="color: red;">*</label>
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      name="modelo"
+                      title="Por favor ingrese un modelo"
+                      class="form-control"
+                      type="text"
+                      pattern="[a-zA-Z0-9\-\/\(\)_\.,]+(\s[a-zA-Z0-9\-\/\(\)_\.,]+)*"
+                      value="{{laptop.modelo}}"
+                      required
+                      maxlength="20"
+                      minlength="5"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      Ingrese un modelo válido.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio"
+                    >Marca <label style="color: red;">*</label></label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      name="marca"
+                      title="Por favor ingrese una marca"
+                      class="form-control"
+                      type="text"
+                      pattern="[a-zA-Z0-9]+([ ][a-zA-Z0-9]+)*"
+                      value="{{laptop.marca}}"
+                      required
+                      maxlength="20"
+                      minlength="2"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                     Ingrese un marca válida.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Nombre <label style="color: red;">*</label>
+                  </label>
+    
+                  <div class="col-sm-9">
+                    <input
+                      name="nombre"
+                      title="Por favor ingrese un nombre"
+                      class="form-control"
+                      type="text"
+                      pattern="[a-zA-Z0-9]+( [a-zA-Z0-9]+)*"
+                      value="{{laptop.nombre}}"
+                      required
+                      maxlength="20"
+                      minlength="8"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      Ingrese un nombre válido.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Stock <label style="color: red;">*</label>
+                  </label>
+    
+                  <div class="col-sm-9">
+                    <input
+                      name="stock"
+                      title="Por favor ingrese la cantidad de laptops"
+                      class="form-control"
+                      type="number"
+                      required
+                      value="{{laptop.stock}}"
+                      max="1000"
+                      min="1"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      Introduzca un valor de unidad que sea mayor a 0 y menor a 1000.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Precio <label style="color: red;">*</label>
+                  </label>
+    
+                  <div class="col-sm-9">
+                    <input
+                      name="precio"
+                      title="Por favor ingrese el precio de la laptop"
+                      class="form-control"
+                      type="number"
+                      value="{{laptop.precio}}"
+                      required
+                      max="30000"
+                      min="350"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      Introduzca un valor de unidad que sea mayor a 350 y menor a 30000.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"> Pantalla <label style="color: red;">*</label></label>
+    
+                  <div class="col-sm-9">
+                    <select class="form-control" name="pantalla" required>
+                      <option value="13pulg" {% if laptop.pantalla == "13pulg" %} selected {% endif %}>13 pulgadas</option>
+                
+                      <option value="14pulg" {% if laptop.pantalla == "14pulg" %} selected {% endif %}>14 pulgadas</option>
+                
+                      <option value="15.6pulg" {% if laptop.pantalla == "15.6pulg" %} selected {% endif %}>15.6 pulgadas</option>
+                
+                      <option value="17pulg" {% if laptop.pantalla == "17pulg" %} selected {% endif %}>17 pulgadas</option>
+                    </select>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Teclado <label style="color: red;">*</label>
+                  </label>
+    
+                  <div class="col-sm-9">
+                    <input
+                      name="teclado"
+                      title="Por favor ingrese el lenguaje del teclado de la laptop"
+                      class="form-control"
+                      type="text"
+                      pattern="[a-zA-Z0-9\-\/\(\)_\.,ñÑ]+( [a-zA-Z0-9\-\/\(\)_\.,ñÑ]+)*"
+                      value="{{laptop.teclado}}"
+                      required
+                      maxlength="10"
+                      minlength="5"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      “Introduzca un idioma de teclado válido.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Procesador <label style="color: red;">*</label>
+                  </label>
+    
+                  <div class="col-sm-9">
+                    <input
+                      name="procesador"
+                      title="Por favor ingrese el procesador de la laptop"
+                      class="form-control"
+                      type="text"
+                      pattern="[a-zA-Z0-9\-\/\(\)_\s]([a-zA-Z0-9\-\/\(\)_\s]*[a-zA-Z0-9\-\/\(\)_\s])?"
+                      value="{{laptop.procesador}}"
+                      required
+                      maxlength="25"
+                      minlength="4"
+                      oninvalid="this.classList.add('is-invalid')"
+                    />
+                    <div class="invalid-feedback">
+                      Introduzca un procesador válido.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" title="Campo obligatorio">
+                    Ram <label style="color: red;">*</label>
+                  </label> 
+    
+                  <div class="col-sm-9">
+                    <select class="form-control" name="ram" required>
+                      <option value="2" {% if laptop.ram == "2" %} selected {% endif %}>2gb</option>
+                
+                      <option value="2exp" {% if laptop.ram == "2exp" %} selected {% endif %}>2gb(exp)</option>
+                
+                      <option value="4" {% if laptop.ram == "4" %} selected {% endif %}>4gb</option>
+                
+                      <option value="4exp" {% if laptop.ram == "4exp" %} selected {% endif %}>4gb(exp)</option>
+                
+                      <option value="8" {% if laptop.ram == "8" %} selected {% endif %}>8gb</option>
+                
+                      <option value="8exp" {% if laptop.ram == "8exp" %} selected {% endif %}>8gb(exp)</option>
+                
+                      <option value="16" {% if laptop.ram == "16" %} selected {% endif %}>16gb</option>
+                
+                      <option value="16exp" {% if laptop.ram == "16exp" %} selected {% endif %}>16gb(exp)</option>
+                
+                      <option value="32" {% if laptop.ram == "32" %} selected {% endif %}>32gb</option>
+                
+                      <option value="32xp" {% if laptop.ram == "32xp" %} selected {% endif %}>32gb(exp)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      Color <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9">
+                      <input
+                        name="color"
+                        title="Por favor ingrese el color de la laptop"
+                        class="form-control"
+                        type="text"
+                        pattern="[a-zA-Z0-9]+([ ][a-zA-Z0-9]+)*"
+                        value="{{laptop.color}}"
+                        required
+                        maxlength="15"
+                        minlength="3"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      <div class="invalid-feedback">
+                        Ingrese un color válido.
+                      </div>
+                    </div>
+                  </div>
+                
+            </fieldset>
+            </div >
+  
+            <div class="col-sm-6">
+                <fieldset>
+                  
+      
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      M2 <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9">
+                        <select class="form-control" name="m2" required>
+                            <option value="256gb" {% if laptop.m2 == "256gb" %} selected {% endif %}>256 gb</option>
+                            <option value="512gb" {% if laptop.m2 == "512gb" %} selected {% endif %}>512 gb</option>
+                            <option value="1tb" {% if laptop.m2 == "1tb" %} selected {% endif %}>1 tb</option>
+                            <option value="2tb" {% if laptop.m2 == "2tb" %} selected {% endif %}>2 tb</option>
+                          </select>
+                    </div>
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      Hdd <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9">
+                        <select class="form-control" name="hdd" required>
+                            <option value="sinhdd" {% if laptop.hdd == "sinhdd" %} selected {% endif %}>sin HDD</option>
+                            <option value="256hdd" {% if laptop.hdd == "256hdd" %} selected {% endif %}>256 gb</option>
+                            <option value="512hdd" {% if laptop.hdd == "512hdd" %} selected {% endif %}>512 gb</option>
+                            <option value="1hdd" {% if laptop.hdd == "1hdd" %} selected {% endif %}>1 tb</option>
+                            <option value="2hdd" {% if laptop.hdd == "2hdd" %} selected {% endif %}>2 tb</option>
+                        </select>
+                    </div>
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      Gráfica <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9">
+                      <input
+                        name="grafica"
+                        title="Por favor ingrese la grafica de la laptop"
+                        class="form-control"
+                        type="text"
+                        pattern="[a-zA-Z0-9]+(?:[\s\-\/\(\)_][a-zA-Z0-9]+)*"
+                        value="{{laptop.grafica}}"
+                        required
+                        maxlength="25"
+                        minlength="5"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      <div class="invalid-feedback">
+                        Introduzca una tarjeta gráfica válida.
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      Descripción <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9">
+                      <input
+                        name="descripcion"
+                        title="Por favor ingrese la descripcion de la laptop"
+                        class="form-control"
+                        style="height: 100px; word-wrap: break-word;"
+                        type="text"
+                        pattern="[a-zA-Z0-9\s\-\/\(\)_\.,]+"
+                        value="{{laptop.descripcion}}"
+                        required
+                        maxlength="1000"
+                        minlength="30"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      <div class="invalid-feedback">
+                        Introduzca una descripción válida.
+                      </div>
+                    </div>
+
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" title="Campo obligatorio">
+                      Imagenes <label style="color: red;">*</label>
+                    </label>
+      
+                    <div class="col-sm-9" style="display: grid">
+                        {{ruta_1}}
+                      <input
+                        name="imagen_1"
+                        type="file"
+                        value=""
+                        accept=".jpg,.png"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      {{ruta_2}}
+                      <input
+                        name="imagen_2"
+                        type="file"
+                        accept=".jpg,.png"                         
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      {{ruta_3}}
+
+                      <input
+                        name="imagen_3"
+                        type="file"
+                        accept=".jpg,.png"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      {{ruta_4}}
+
+                      <input
+                        name="imagen_4"
+                        type="file"
+                        accept=".jpg,.png"
+                        oninvalid="this.classList.add('is-invalid')"
+                      />
+                      <div class="invalid-feedback">
+                        Por Favor suba 4 imágenes de la laptop.
+                      </div>
+                    </div>
+                  </div>
+      
+    <div class="modal-footer">
+                  
+                    <div class="form-actions d-flex justify-content-between" >
+                    <button
+                      class="btn btn-default"
+                      title=""
+                      
+                      style="background-color: #D9D9D9;color: black;margin-right: 40px;"
+                      type="button"
+                      onclick="eliminarcambios()"
+                    >
+                      CANCELAR
+                    </button>
+                    <button
+                      class="btn btn-primary js-tooltip"
+                      id="btnGuardar"
+                      title=""
+                      style="background-color: #243757;margin-right: 40px;"
+                      onclick="borrarMensajesError()"
+                    >
+                      GUARDAR
+                    </button>
+                  </div>
+    </div>
+                  
+                </fieldset>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{% static '/scripts/scriptModificarLaptop.js' %}"></script>
+
+
+{% endblock %}

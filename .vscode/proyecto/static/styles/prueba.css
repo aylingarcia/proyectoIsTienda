@@ -1,0 +1,54 @@
+#miModal {
+    position: relative;
+    z-index: 1;
+    left: 0;
+    top: -10%;
+    width: 60%;
+    height: 95%;
+    overflow: auto;
+    background-color:white;
+    display: none;
+    margin-left: 15%;
+    border: 2px solid black;
+  }
+  
+  #miModal p {
+    background-color: white;
+    padding: 20px;
+    margin: 15% auto;
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  #miModal button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  form {
+    font-size: 15px;
+
+  }
+  input{
+    font-size: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 25px;
+
+  }
+
+.form-actions{
+  display: flex;
+}
+.modal-dialog {
+  max-width: 800px; /* Cambiar el valor para ajustar el ancho */
+  width: 100%;
+  display: table;
+}

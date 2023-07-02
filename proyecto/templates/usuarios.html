@@ -1,0 +1,73 @@
+ {% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'styles/estilosUsuarios.css'%}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+
+<section>
+    <div class="titulo">
+        <h2>Lista de Empleados</h2>
+    </div>
+    <section style="margin-right: 20px; margin-left: 20px;">
+        <div class="tb">
+            <table class="tabla table table-striped table-hover table-bordered">
+                <tr class="">
+                    <th>Nomb. EMPLEADO</th>
+                    <th>NOMBRE USUARIO</th>
+                    <th>Ci EMPLEADO</th>
+                    <th class="btn-eliminar">ELIMINAR</th>
+                </tr>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td class="tdd">{{ usuario.nombemp }}</td>
+                        <td class="tdd">{{ usuario.usuario }}</td>
+                        <td class="tdd">{{ usuario.ciemp }}</td>
+                        <td class="tdd btn-eliminar">
+                            <form id="form-{{ usuario.id }}" action="{% url 'eliminarUsuario' usuario.id %}" method="POST">
+                                {% csrf_token %}
+            
+                                <script>
+                                    function eliminarUser(usuarioId, usuarioNombre) {
+                                        Swal.fire({
+                                            title: 'Eliminar empleado',
+                                            text: `¿Desea eliminar al usuario ${usuarioNombre}?`,
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            cancelButtonText: 'Cancelar',
+                                            confirmButtonText: 'Aceptar',
+                                            reverseButtons: true
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                document.getElementById('form-' + usuarioId).submit();
+                                                Swal.fire(
+                                                    '',
+                                                    `El usuario ${usuarioNombre} ha sido eliminado exitosamente`,
+                                                    'success'
+                                                );
+                                            }
+                                        });
+                                    }
+                                </script>
+                                <button onclick="eliminarUser('{{ usuario.id }}', '{{ usuario.nombemp }}')" type="button" class="btn1">Eliminar</button>
+
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            
+            
+        </div>
+    </section>
+    <a href="{% url 'registro' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus-circle"
+             viewBox="0 0 16 16" style="color:#314755 ; position: fixed; top:87%; left: 93%;">
+            <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+        </svg>
+    </a>
+</section>
+{% endblock %}

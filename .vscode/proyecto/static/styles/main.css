@@ -1,0 +1,21 @@
+
+.fondo{
+    background-color: rgb(253, 253, 253);
+    background-image: url('/static/imagenes/home/inicio1.jpg');
+    background-position: center center;
+    background-repeat:no-repeat;
+    font-size: calc(1em + 1vw);
+    background-position-x: right;
+    break-after: left;
+    background-position-y:right;
+    background-size: 1800px 600px;
+       
+}
+.bienvenida{
+    font-size: 60px; 
+    font-family: Helvetica;
+    margin-bottom: 40px;
+    position: relative;
+    text-align:center;
+    font-size: calc(1.1em + 1.1vw);
+}
